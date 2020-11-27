@@ -1,14 +1,26 @@
 import React from 'react';
+
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-import GlobalStyles from '../styles/GlobalStyles';
+import MainPageTemplate from '../pages/mainPage';
+import { LoginPageTemplate } from '../pages/loginPage';
+import { Header, Container } from '../components';
+
+import { Counter } from '../pages';
 
 const Routes = () => {
   return (
     <Router>
-      <GlobalStyles />
+      <Header />
       <Switch>
-        <Route exact path="/" />
+        <Route
+          exact
+          path="/"
+          render={props => <MainPageTemplate {...props} />}
+        />
+        <Route exact path="/login" component={LoginPageTemplate} />
+        <Route exact path="/inputTest" component={Container} />
+        <Route exact path="/counter" component={Counter} />
       </Switch>
     </Router>
   );

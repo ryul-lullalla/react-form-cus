@@ -1,7 +1,9 @@
 import React from 'react';
+import MainPage from './MainPage.component';
 
-const MainPage = () => {
-  return 'This is Main Page';
+const MainPageTemplate = props => {
+  console.log(props);
+  return <MainPage />;
 };
 
-export default MainPage;
+export default MainPageTemplate;
