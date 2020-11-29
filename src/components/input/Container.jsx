@@ -5,9 +5,12 @@ import { JSICON, REACTICON, APPLEICON, CHROMEICON } from '../../img';
 
 const Container = () => {
   // const abc = <REACTICON />;
+  const funcAsPropsTest = () => {
+    console.log('funcAsPropsTest');
+  };
   return (
     <div>
-      <Presenter>
+      <Presenter propsTest={funcAsPropsTest}>
         <button type="button">테스트 버튼</button>
       </Presenter>
       <Presenter />

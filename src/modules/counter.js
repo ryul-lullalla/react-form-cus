@@ -2,7 +2,7 @@ const INCREMENT = 'counter/INCREMENT';
 const DECREMENT = 'counter/DECREMENT';
 
 export const increment = data => {
-  console.log('4, increment');
+  console.log('4, increment', data);
   return { type: INCREMENT, payload: data };
 };
 export const decrement = () => ({ type: DECREMENT });
@@ -10,7 +10,7 @@ export const decrement = () => ({ type: DECREMENT });
 const initialState = { data: [] };
 
 const counter = (state = initialState, action) => {
-  console.log('5, counter');
+  console.log('5, counter', state, action);
   switch (action.type) {
     case INCREMENT:
       return {

@@ -11,10 +11,11 @@ const Presenter = props => {
   //   });
   // };
   // useEffect(() => {}, []);
+  console.log(props);
   return (
     <div>
       <input />
-      {props.children}
+      {/* {props.children} */}
     </div>
   );
 };
