@@ -11,41 +11,77 @@ import React, {
 } from 'react';
 
 import { FormContext } from '../../context';
-
+const removeComma = str => {
+  return String(str).replace(/[^\d]+/g, '');
+};
+const addCommaEstimate = str => {
+  if (typeof parseInt(str) === 'number') {
+    return String(parseInt(removeComma(str))).replace(
+        /(\d)(?=(?:\d{3})+(?!\d))/g,
+        '$1,',
+    );
+  }
+  return str;
+};
 const useInput = props => {
   const form = useContext(FormContext);
-  console.log(form);
-  console.log(props);
+  console.log({form})
   const itemRef = useRef();
-  console.log(itemRef);
   const [storeRef, setStoreRef] = useState();
-  // console.log(storeRef);
+  // const storeRef = useMemo(()=> form.updateOrGetRef(props.name),[form, props.name])
   const [value, setValue] = useState(props?.defaultValue || '');
-  console.log({ value });
   // useEffect(() => {
-  console.log('useEffect');
   useEffect(() => {
+    console.log("useInput useEffect", props.name)
     const hotstoreRef = form.updateOrGetRef(props.name);
     setStoreRef(hotstoreRef);
   }, [form, props.name]);
-  // console.log(props.name, hotStoreRef.current);
   // if (!hotStoreRef.current) {
   //   return;
   // }
   // setStoreRef(hotStoreRef);
   // }, [form, props.name]);
-  console.log('useImperativeHandle');
-  console.log({ storeRef });
 
-  useImperativeHandle(storeRef, () => ({
+  useImperativeHandle(storeRef, () => {
+    return {
     value,
+      required: !!props.required,
     instance: itemRef.current,
-  }));
+    }
+  },[value]
+  );
+// useEffect(()=> {
+//   if (props.setValueAsNumber) {
+//     setValue(e?.target?.value);
+//
+//   }
+// })
 
   const handleChange = e => {
-    setValue(e.target.value);
+    console.log(e, typeof e)
+    console.log(new Date())
+    if (props.numberOnly) {
+      if (props.setNumWithComma) {
+        itemRef.current.value = addCommaEstimate(e.target.value)
+
+      }
+      if (isNaN(removeComma(e.target.value))) {
+        return
+      }
+      setValue(parseInt(removeComma(e?.target?.value)));
+return
+    }
+    if (props.type==='datePicker') {
+    setValue(e);
+    return
+
+    }
+    setValue(e?.target?.value);
+    //   setStoreRef({...storeRef, value: e.target.value})
   };
-  return [value, setValue, handleChange];
+//   const onChange =()=> {
+// setValue("ONCHANGE")  }
+  return [value, setValue, handleChange,itemRef ];
 };
 
 export default useInput;

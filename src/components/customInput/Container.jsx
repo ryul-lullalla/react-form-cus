@@ -1,23 +1,29 @@
-import React, { useRef } from 'react';
-
+import React, { useRef,memo } from 'react';
+import styled from 'styled-components'
 import useInput from '../../hooks/useInput/useInput';
-
-const InputContainer = props => {
-  console.log(props.name);
-  const [value, setValue, handleChange] = useInput(props);
-  console.log({ value });
+import {CustomInputLabel} from '../customInputLabel'
+const InputContainer = memo(props => {
+  const [value, setValue, handleChange,itemRef,onChange] = useInput(props);
   return (
     <div>
-      <div>{props.label}</div>
-      <input
+      <CustomInputLabel label={props.label}/>
+      <NewInput
         placeholder={props.placeholder}
         type={props.type}
-        nanme="email"
-        value={value}
+        name="email"
+        // value={value|| ""}
+          defaultValue={props.defaultValue || ""}
         onChange={handleChange}
+        ref={itemRef}
+        required={!!props.required}
+        validationMessage={"nonono"}
+        // onChange={onChange}
       />
     </div>
   );
-};
+});
 
 export default InputContainer;
+
+const NewInput = styled.input`
+`

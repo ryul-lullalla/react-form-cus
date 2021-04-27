@@ -6,7 +6,6 @@ import { JSICON, REACTICON, APPLEICON, CHROMEICON } from '../../img';
 const Container = () => {
   // const abc = <REACTICON />;
   const funcAsPropsTest = () => {
-    console.log('funcAsPropsTest');
   };
   return (
     <div>
